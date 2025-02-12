@@ -26,25 +26,17 @@ model Project {
   link               String
   source             String
   description        String
-  technicalSkillList TechnicalSkill[]
+  technicalSkillList TechnicalSkill[] @relation("ProjectToTechnicalSkill")
 }
 
 model TechnicalSkill {
   id                 String             @id @default(uuid())
   name               String
   image              String
-  projectList        Project[]
   link               String
   description        String
   experienceYearTime experienceYearTime
-}
-
-enum experienceYearTime {
-  LESS_ONE_YEAR
-  BETWEEN_ONE_AND_TWO_YEAR
-  BETWEEN_TWO_AND_FOUR_YEAR
-  BETWEEN_FOUR_AND_TEN_YEAR
-  MORE_TEN_YEAR
+  projectList        Project[]          @relation("ProjectToTechnicalSkill")
 }
 
 model SoftSkill {
@@ -70,4 +62,12 @@ model SocialMedia {
   username    String
   logo        String?
   backImage   String?
+}
+
+enum experienceYearTime {
+  LESS_ONE_YEAR
+  BETWEEN_ONE_AND_TWO_YEAR
+  BETWEEN_TWO_AND_FOUR_YEAR
+  BETWEEN_FOUR_AND_TEN_YEAR
+  MORE_TEN_YEAR
 }

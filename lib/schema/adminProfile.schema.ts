@@ -2,7 +2,9 @@ import { z } from "zod"
 import { trimAndNormalize } from "./utils"
 
 export const SchemaAdminProfile = z.object({
-  image: z.instanceof(File).optional(),
+  image: globalThis.File
+  ? z.custom<File>((val) => val instanceof File, { message: "فایل نامعتبر است" }).optional()
+  : z.any().optional(),
   name: z.string().trim().min(1, "نام اجباری میباشد").transform(trimAndNormalize),
   family: z.string().trim().min(1, "نام خانوادگی اجباری میباشد").transform(trimAndNormalize),
   phone: z.string().trim().min(1, "تلفن اجباری میباشد").transform(trimAndNormalize),
